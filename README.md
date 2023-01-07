@@ -1,2 +1,2 @@
-# coursera-test
-Coursera test Repository
+# Rapid Roll game
+Rapid roll game
