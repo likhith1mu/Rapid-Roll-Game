@@ -8,7 +8,6 @@ import java.io.*;
 
 class HighSc
 {
-
   int hsc;
   BufferedReader br;
   FileInputStream fis;
@@ -21,12 +20,9 @@ class HighSc
      fis.close();
      return sths;
      }
-
  }
 
-
-class GameFrame extends Frame implements  Runnable, KeyListener
-,ActionListener
+class GameFrame extends Frame implements  Runnable, KeyListener,ActionListener
 {
    MenuBar mb;
    Menu m1;
@@ -34,14 +30,11 @@ class GameFrame extends Frame implements  Runnable, KeyListener
     Button b1,b2,b3;
     Button ball;
     Button oneUp;
-
     final int TOPLINE = 50;
     final int BOTTOMLINE = 350;
     final int LEFTLINE = 20;
     final int RIGHTLINE = 350 ;
-
     int scrollSpeed = 25;
-
     int x=50, y=300;
     int x2=125,y2=200;
     int x3 = 90,y3=100;
@@ -51,17 +44,13 @@ class GameFrame extends Frame implements  Runnable, KeyListener
     int oy = 0;
     int score = 0;
     int oneUpCount = 1;
-
     int  t1,t2,t3;
-
     int chances=3;
     int a,b,c;
     int diff = 65;
     String msg = "";
     String chns = "";
     String st = "";
-
-
     char ch;
     int kcode;
     boolean flagLKey = true;
@@ -78,13 +67,9 @@ class GameFrame extends Frame implements  Runnable, KeyListener
     boolean flagJump = true;
     boolean flagNew1 = false;
     boolean flagOneUp = false;
-
     Thread t;
-
     GameFrame()
     {
-
-
      mb = new MenuBar();
      m1  = new Menu("File");
      mi1 = new MenuItem("New Game");
@@ -95,10 +80,8 @@ class GameFrame extends Frame implements  Runnable, KeyListener
      m1.add(mi1);
      m1.add(mi2);
      m1.add(mi3);
-
         setTitle("simple frame");
         setSize(400,350);
-
         setLayout(null);
         b1 = new Button("");
         b2 = new Button("");
@@ -113,18 +96,14 @@ class GameFrame extends Frame implements  Runnable, KeyListener
         b1.setBounds(x,y,70,20);
         b2.setBounds(x2,y2,70,20);
         b3.setBounds(x3,y3,70,20);
-
         ball.setBounds(bx,by,10,10);
         oneUp.setBounds(bx-5,by,5,5);
-
         setBackground(Color.blue);
         setForeground(Color.white);
         ball.addKeyListener(this);
-
         mi1.addActionListener(this);
         mi2.addActionListener(this);
 	mi3.addActionListener(this);
-
          addWindowListener(new WindowAdapter()
          {
              public void windowClosing(WindowEvent we)
@@ -135,19 +114,17 @@ class GameFrame extends Frame implements  Runnable, KeyListener
 
           t = new Thread(this,"game");
           t.start();
-
-      }  //end of constructor
+      }
 
       public void actionPerformed(ActionEvent ae)
       {
           st = ae.getActionCommand();
           if(st.equals("New Game"))
           {
-
-              stop();this.setVisible(false);
+              stop();
+		this.setVisible(false);
               Frame ng = new GameFrame();
               ng.setVisible(true);
-
              }
           else if(st.equals("HighScores"))
           {
@@ -156,7 +133,8 @@ class GameFrame extends Frame implements  Runnable, KeyListener
              try
              {
                msg = "";
-               msg  =  hs.getHighScore(); repaint();
+               msg  =  hs.getHighScore(); 
+		repaint();
                }
              catch(IOException ie)
              {
@@ -167,42 +145,29 @@ class GameFrame extends Frame implements  Runnable, KeyListener
           {
               closeAll();
 	     }
-
         }
 
       public void closeAll()
       {
-
         stop();
         t = null;
          System.exit(0);
-
         }
 
       public void keyPressed(KeyEvent ke)
       {
             kcode = ke.getKeyCode();
-
-
-
-
              switch(kcode)
              {
 
                 case KeyEvent.VK_LEFT:
                                        if(flagDrop)
                                           bx -= 4;
-
-
-
-
-
-if(ox<=bx+2&&ox>=bx&&(oy>=by&&oy<=by+6))
+                if(ox<=bx+2&&ox>=bx&&(oy>=by&&oy<=by+6))
                                        {
 					 chances++;ox = 0;oy = 0;
 					  repaint(); flagOneUp = false;
 					 }
-
 		     while(flagLKey)
                      {
  			 if(((bx>=x&&bx<=x+70)&&(by<y&&by>=y-11))
@@ -223,14 +188,10 @@ if(ox<=bx+2&&ox>=bx&&(oy>=by&&oy<=by+6))
                                flagOnx2 = false;
                             else if(flagOnx3)
                                flagOnx3 = false;
-
 				 break;
 			  }
-
                          repaint();  break;
  			}
-
-
                                             break;
 
                 case KeyEvent.VK_RIGHT:
@@ -238,7 +199,7 @@ if(ox<=bx+2&&ox>=bx&&(oy>=by&&oy<=by+6))
 					  bx +=4;
 
 
-if(ox<=bx+2&&ox>=bx&&(oy>=by&&oy<=by+6))
+                if(ox<=bx+2&&ox>=bx&&(oy>=by&&oy<=by+6))
 					{
 					   chances++;	ox = 0; oy = 0;
 					   repaint();	flagOneUp = false;
@@ -293,8 +254,6 @@ if(ox<=bx+2&&ox>=bx&&(oy>=by&&oy<=by+6))
                flagLKey = true;
                flagRKey = true;
               }
-
-
           }
 
       public void keyTyped(KeyEvent ke)
@@ -304,8 +263,6 @@ if(ox<=bx+2&&ox>=bx&&(oy>=by&&oy<=by+6))
 
      public void flagDropFun()
      {
-
-
             while(flagDrop)
             {
 	       by += 1;
@@ -317,8 +274,6 @@ if(ox<=bx+2&&ox>=bx&&(oy>=by&&oy<=by+6))
 
                  flagDrop = false;
 		 flagBetween = true;
-
-
 if(!flagOnx2&&!flagOnx3&&(bx>=x&&bx<=x+70)&&(by<y&&by>=y-11))
 		 {
 		     flagOnx = true;	flagJump = true;score +=5;
@@ -479,7 +434,6 @@ if(!flagOnx&&!flagOnx2&&(bx>=x3&&bx<=x3+70)&&(by<y3&&by>=y3-11))
 
                     if(by<TOPLINE)
                     {
-
                            if(by<TOPLINE-10)
                            {
                              t.sleep(100);
@@ -491,9 +445,6 @@ if(!flagOnx&&!flagOnx2&&(bx>=x3&&bx<=x3+70)&&(by<y3&&by>=y3-11))
                               stop();
 			     }
                      }
-
-
-
                 if((flagOnx&&flagBetween))
                 {
 
@@ -503,16 +454,13 @@ if(!flagOnx&&!flagOnx2&&(bx>=x3&&bx<=x3+70)&&(by<y3&&by>=y3-11))
                     }
                    by = y-11;
                    flagJump = false;
-
                   }
-
                 else if((flagOnx2&&flagBetween))
                 {
                  if(!flagLKey&&!flagRKey)
 		    bx = x2+30;
                   by = y2-11;
                   flagJump = false;
-
                   }
                 else if(flagOnx3&&flagBetween)
                 {
@@ -520,9 +468,7 @@ if(!flagOnx&&!flagOnx2&&(bx>=x3&&bx<=x3+70)&&(by<y3&&by>=y3-11))
 	             bx = x3+30;
                   by = y3-11;
                   flagJump = false;
-
                   }
-
                while(flagDrop)
                 {
                     by += 1;
@@ -541,31 +487,21 @@ if(!flagOnx&&!flagOnx2&&(bx>=x3&&bx<=x3+70)&&(by<y3&&by>=y3-11))
                        }
 		    repaint(); break;
                   }
-
-       /*             if(score%50==0)
-		    {
-			scrollSpeed -= 3; score += 5;
-                      }	     */
-
-	            repaint();
-
+            repaint();
                     Thread.sleep(scrollSpeed);
-
-                 } //end of while flagMove
+                 }
 
                }
               catch(InterruptedException ie)
               {
                    System.out.println(ie);
                  }
-
            }
           public void stop()
           {
                 flagMove = false;
                 t = null;
               }
-
        public void paint(Graphics g)
         {
              b1.setBounds(x,y,70,20);
@@ -575,12 +511,9 @@ if(!flagOnx&&!flagOnx2&&(bx>=x3&&bx<=x3+70)&&(by<y3&&by>=y3-11))
              oneUp.setBounds(ox,oy,5,5);
 	     g.drawString("Score :"+score,280,65);
 	     g.drawString("Chances :"+chances,280,75);
-
              g.drawString(msg,100,100);
-
            }
-
- } // end of  BFrame
+ } 
 
 public class RapidRollGame
 {
@@ -588,9 +521,5 @@ public class RapidRollGame
      {
         Frame f1 = new GameFrame();
         f1.setVisible(true);
-
         }
-
   }
-
-
